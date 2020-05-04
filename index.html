@@ -4,7 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,
     shrink-to-fit=no">
-    <title>Gama Airbnb</title>
+
+    <script src="https://kit.fontawesome.com/b60b447acd.js" crossorigin="anonymous"></script>   <title>Gama Airbnb</title>
+    
+    <!-- Import Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -18,25 +24,30 @@
         <div class="search-bar">
           <label for="search-input">Localização</label>
           <input
+            class="search-input"
             type="text"
             name="search-input"
-            id="search-input" 
+            id="search-input"
             placeholder="Localização"
           />
-          <button type="submit">buscar</button>
-
-          <ul class="menu">
-            <li>
-              <a href="#">idioma</a>
-            </li>
-            <li>
-              <a href="#">Ajuda</a>
-            </li>
-            <li>
-              <a href="#">Cadastre-se</a>
-            </li>
-          </ul>
+          <button class="search-button" type="submit">
+            <span class="icon-search" data-feather="search"></span>
+          </button>
         </div>
+
+        <ul class="menu">
+          <li>
+            <a href="#">
+              <i class="fas fa-globe"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">Ajuda</a>
+          </li>
+          <li>
+            <a href="#">Cadastre-se</a>
+          </li>
+        </ul>
 
       </header> <!-- END - HEADER -->
 
@@ -198,6 +209,10 @@
         </ul>
       </footer> <!-- END - FOOTER -->
     </div>
+  
+    <script>
+      feather.replace()
+    </script>
     <script src="js/main.js" charset="utf-8"></script>
   </body>
 </html>
