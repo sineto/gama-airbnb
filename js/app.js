@@ -2,6 +2,23 @@ import * as data from './getData.js';
 import { Element, LinkElement } from './classes.js';
 import * as paginate from './paginate.js';
 
+// map
+let script = document.createElement('script');
+let apiMapKey = 'AIzaSyCnqtwJKIoDl6ShU2rpk9Vai0rjIOd8Vqk';
+script.src = `https://maps.googleapis.com/maps/api/js?key=${apiMapKey}&callback=initMap`;
+script.defer = true;
+script.async = true;
+
+document.head.appendChild(script);
+window.initMap = () => {
+	var map = new google.maps.Map(document.getElementById('map'), {
+		center: new google.maps.LatLng(-10.3333333, -53.2),
+		zoom: 6,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+}
+
+// build card html structure
 let cards = document.querySelector('.cards');
 
 function buildItemCard(item) {
@@ -58,12 +75,7 @@ function buildCardsEl(data) {
 	items.map(buildItemCard);
 }
 
-// function initMap() {
-// 	map = new google.maps.Map(document.querySelector('.map'), {
-// 		center: new google.maps.LatLng()
-// 	});
-// }
-
+// let iconMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
 async function App() {
 	let previousPage = document.getElementById('previous');
 	let nextPage = document.getElementById('next');
