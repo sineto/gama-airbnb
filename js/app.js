@@ -1,20 +1,15 @@
+import * as data from './getData.js';
 import { Element, LinkElement } from './classes.js';
 import * as paginate from './paginate.js';
 
-const sheetyUrl = 'https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72';
-let sheetyData = [];
 let cards = document.querySelector('.cards');
-
-async function get(apiUrl) {
-	let response = await fetch(apiUrl);
-	return response.json();
-}
 
 function buildItemCard(item) {
 	let currency = new Intl.NumberFormat('pt-BR', {
 		style: 'currency',
 		currency: 'BRL'
 	});
+
 	const cardEl = Element.generate('article').addClass('item-card')
 		.appendChild(
 			Element.generate('div').addClass('item-card-img')
@@ -30,7 +25,7 @@ function buildItemCard(item) {
 			.appendChild(
 				Element.generate('div').addClass('item-card-title')
 				.appendChild(
-					Element.generate('span').innerHtml(item.property_type)
+					Element.generate('span').innerHtml(`${item.property_type} em ${item.city_name}`)
 				)
 				.appendChild(
 					Element.generate('h2').appendChild(
@@ -63,24 +58,32 @@ function buildCardsEl(data) {
 	items.map(buildItemCard);
 }
 
+// function initMap() {
+// 	map = new google.maps.Map(document.querySelector('.map'), {
+// 		center: new google.maps.LatLng()
+// 	});
+// }
+
 async function App() {
 	let previousPage = document.getElementById('previous');
 	let nextPage = document.getElementById('next');
 
-	sheetyData = await get(sheetyUrl);
+	let sheety = await data.get(data.sheetyUrl);
+	let cities = await data.get(data.citiesUrl);
+	let response = data.rebaseData(sheety, cities);
 
 	previousPage.onclick = () => {
-		paginate.prev(sheetyData);
-		buildCardsEl(sheetyData);
+		paginate.prev(response);
+		buildCardsEl(response);
 	}
 
 	nextPage.onclick = () => {
-		paginate.next(sheetyData);
-		buildCardsEl(sheetyData);
+		paginate.next(response);
+		buildCardsEl(response);
 	};
 
-	if (sheetyData[0]) {
-		buildCardsEl(sheetyData);
+	if (response[0]) {
+		buildCardsEl(response);
 	}
 }
 
