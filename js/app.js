@@ -3,8 +3,12 @@ import { Element, LinkElement } from './classes.js';
 import * as paginate from './paginate.js';
 import * as map from './map.js';
 
-// build card html structure
 let cards = document.querySelector('.cards');
+let checkin = document.getElementById('checkin-input');
+let checkout = document.getElementById('checkout-input');
+checkin.valueAsDate = new Date();
+checkout.valueAsDate = new Date();
+let daysPeriod = 0;
 
 function buildItemCard(item) {
 	let currency = new Intl.NumberFormat('pt-BR', {
@@ -36,9 +40,22 @@ function buildItemCard(item) {
 				)
 			)
 			.appendChild(
-				Element.generate('p')
+				Element.generate('div')
 				.addClass('item-card-price')
-				.innerHtml(`${currency.format(item.price)}`)
+				.appendChild(
+					Element.generate('div')
+					.addClass('item-price-unit')
+					.appendChild(
+						Element.generate('span').innerHtml(`${daysPeriod} diárias`)
+					)
+					.appendChild(
+						Element.generate('p').innerHtml(`${currency.format(item.price)}`)
+					)
+				)
+				.appendChild(
+					Element.generate('p').addClass('item-price-total')
+					.innerHtml(`/ ${currency.format(item.price * daysPeriod)}`)
+				)
 			)
 		);
 
@@ -61,6 +78,7 @@ function buildCardsEl(data) {
 }
 
 async function App() {
+	let searchButton = document.getElementById('search-button')
 	let previousPage = document.getElementById('previous');
 	let nextPage = document.getElementById('next');
 
@@ -69,6 +87,15 @@ async function App() {
 	let response = data.rebaseData(sheety, cities);
 
 	map.addMarkers(response);
+
+	searchButton.onclick = () => {
+		let ckin = new Date(checkin.value);;
+		let ckout = new Date(checkout.value);
+
+		let timePeriod = ckout.getTime() - ckin.getTime();
+		daysPeriod = timePeriod / (1000 * 3600 * 24);
+		buildCardsEl(response);
+	}
 
 	previousPage.onclick = () => {
 		paginate.prev(response);
