@@ -1,22 +1,7 @@
 import * as data from './getData.js';
 import { Element, LinkElement } from './classes.js';
 import * as paginate from './paginate.js';
-
-// map
-let script = document.createElement('script');
-let apiMapKey = 'AIzaSyCnqtwJKIoDl6ShU2rpk9Vai0rjIOd8Vqk';
-script.src = `https://maps.googleapis.com/maps/api/js?key=${apiMapKey}&callback=initMap`;
-script.defer = true;
-script.async = true;
-
-document.head.appendChild(script);
-window.initMap = () => {
-	var map = new google.maps.Map(document.getElementById('map'), {
-		center: new google.maps.LatLng(-10.3333333, -53.2),
-		zoom: 6,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
-}
+import * as map from './map.js';
 
 // build card html structure
 let cards = document.querySelector('.cards');
@@ -75,7 +60,6 @@ function buildCardsEl(data) {
 	items.map(buildItemCard);
 }
 
-// let iconMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
 async function App() {
 	let previousPage = document.getElementById('previous');
 	let nextPage = document.getElementById('next');
@@ -83,6 +67,8 @@ async function App() {
 	let sheety = await data.get(data.sheetyUrl);
 	let cities = await data.get(data.citiesUrl);
 	let response = data.rebaseData(sheety, cities);
+
+	map.addMarkers(response);
 
 	previousPage.onclick = () => {
 		paginate.prev(response);
