@@ -14,7 +14,7 @@ export function rebaseData(sheety, cities) {
 
 		item['city_name'] = city.nome;
 		item['lat'] = city.latitude;
-		item['lon'] = city.longitude;
+		item['lng'] = city.longitude;
 
 		data.push(item);
 	});
