@@ -54,7 +54,7 @@ function buildItemCard(item) {
 				)
 				.appendChild(
 					Element.generate('p').addClass('item-price-total')
-					.innerHtml(`/ ${currency.format(item.price * daysPeriod)}`)
+					.innerHtml(`Total de ${currency.format(item.price * daysPeriod)}`)
 				)
 			)
 		);
