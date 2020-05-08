@@ -27,12 +27,10 @@ export function loadObjs(data) {
 
 export function next(data) {
 	currentPage += 1;
-	// buildCardsEl(data);
 	getNumberOfPages(data);
 };
 
 export function prev(data) {
 	currentPage -= 1;
-	// buildCardsEl(data);
 	getNumberOfPages(data);
 };
