@@ -79,6 +79,7 @@ function buildCardsEl(data) {
 
 async function App() {
 	let searchButton = document.getElementById('search-button')
+	let pagination = document.querySelector('.pagination');
 	let previousPage = document.getElementById('previous');
 	let nextPage = document.getElementById('next');
 
@@ -108,6 +109,7 @@ async function App() {
 	};
 
 	if (response[0]) {
+		pagination.style.display = 'block';
 		buildCardsEl(response);
 	}
 }
