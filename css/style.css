@@ -225,6 +225,8 @@ label {
 /* pagination */
 .pagination {
   text-align: center;
+  margin: 1em 0;
+  display: none;
 }
 
 .pagination input {
