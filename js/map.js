@@ -1,4 +1,4 @@
-const apiMapKey = 'AIzaSyCnqtwJKIoDl6ShU2rpk9Vai0rjIOd8Vqk';
+const apiMapKey = '';
 var map;
 
 // map
